@@ -11,10 +11,10 @@ clean:
 	rm src/*.l* src/*.slo || true
 	rm -R src/.libs || true
 
-install:
+install: src/mod_authn_indieauth.la
 	apxs -i -a src/mod_authn_indieauth.la
 
-mod_authn_indieauth.la: src/mod_authn_indieauth.c
+mod_authn_indieauth.la: src/mod_authn_indieauth.c src/mod_authn_indieauth.h
 	apxs -c src/mod_authn_indieauth.c
 
 dependencies:
