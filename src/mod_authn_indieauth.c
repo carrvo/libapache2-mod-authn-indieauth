@@ -40,12 +40,12 @@ static const char *indieauth_get_client_id(request_rec *r, indieauth_config *cfg
     return path;
 }
 
-void *indieauth_create_dir_conf(apr_pool_t *pool, char *context) {
-    context = context ? context : "(undefined context)";
+void *indieauth_create_dir_conf(apr_pool_t *pool, char *context_dir) {
+    context_dir = context_dir ? context_dir : "/";
     indieauth_config *cfg = apr_pcalloc(pool, sizeof(indieauth_config));
     if(cfg) {
         /* Set some default values */
-        strcpy(cfg->context, context);
+        strcpy(cfg->context_dir, context_dir);
         cfg->scope = "profile";
         cfg->client_id_path = "";
     }
@@ -55,7 +55,7 @@ void *indieauth_create_dir_conf(apr_pool_t *pool, char *context) {
 void *indieauth_merge_dir_conf(apr_pool_t *pool, void *BASE, void *ADD) {
     indieauth_config *base = (indieauth_config *) BASE ; /* This is what was set in the parent context */
     indieauth_config *add = (indieauth_config *) ADD ;   /* This is what is set in the new context */
-    indieauth_config *conf = (indieauth_config *) indieauth_create_dir_conf(pool, "Merged configuration"); /* This will be the merged configuration */
+    indieauth_config *conf = (indieauth_config *) indieauth_create_dir_conf(pool, base->context_dir); /* This will be the merged configuration */
 
     /* Merge configurations */
     conf->scope = strcmp(add->scope, "") == 0 ? base->scope : add->scope;

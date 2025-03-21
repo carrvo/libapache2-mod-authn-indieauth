@@ -16,7 +16,7 @@
 #define INDIEAUTH_AUTH_TYPE "indieauth"
 
 typedef struct {
-    char        context[256];
+    char context_dir[256];
     char *scope;
     char *client_id_path;
 } indieauth_config;
@@ -24,7 +24,7 @@ typedef struct {
 static char *indieauth_set_scope(cmd_parms *cmd, void *cfg, const char *arg);
 static char *indieauth_set_client_id_path(cmd_parms *cmd, void *cfg, const char *arg);
 static const char *indieauth_get_client_id(request_rec *r, indieauth_config *cfg);
-void *indieauth_create_dir_conf(apr_pool_t *pool, char *context);
+void *indieauth_create_dir_conf(apr_pool_t *pool, char *context_dir);
 void *indieauth_merge_dir_conf(apr_pool_t *pool, void *BASE, void *ADD);
 
 static int indieauth_check_user_id_handler(request_rec *r);
